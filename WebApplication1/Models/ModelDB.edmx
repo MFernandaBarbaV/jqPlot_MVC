@@ -1,0 +1,1959 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DeviceDomainCoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CodeConfiguration">
+          <Key>
+            <PropertyRef Name="ConfigurationID" />
+          </Key>
+          <Property Name="ConfigurationID" Type="bigint" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="80" />
+          <Property Name="Description" Type="varchar" MaxLength="300" />
+          <Property Name="HorizontalClusters" Type="smallint" />
+          <Property Name="VerticalClusters" Type="smallint" />
+          <Property Name="RandomBytes" Type="smallint" />
+          <Property Name="CopiesNumber" Type="smallint" />
+          <Property Name="CreationDate" Type="smalldatetime" />
+          <Property Name="PixelRatio" Type="smallint" Nullable="false" />
+          <Property Name="Percentage" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CodeConfigurationDetail">
+          <Key>
+            <PropertyRef Name="ConfigurationID" />
+            <PropertyRef Name="FieldID" />
+          </Key>
+          <Property Name="ConfigurationID" Type="bigint" Nullable="false" />
+          <Property Name="FieldID" Type="smallint" Nullable="false" />
+          <Property Name="Bytes" Type="int" />
+          <Property Name="FieldTypeID" Type="smallint" />
+          <Property Name="Name" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="CodeDataLog">
+          <Key>
+            <PropertyRef Name="CodeDataLogID" />
+          </Key>
+          <Property Name="CodeDataLogID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CypherKeyID" Type="int" Nullable="false" />
+          <Property Name="Folio" Type="bigint" Nullable="false" />
+          <Property Name="FieldTypeID" Type="smallint" Nullable="false" />
+          <Property Name="Bytes" Type="int" Nullable="false" />
+          <Property Name="Value" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CodeGen2DLog">
+          <Key>
+            <PropertyRef Name="CodeGen2DLogID" />
+          </Key>
+          <Property Name="CodeGen2DLogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Station" Type="int" />
+          <Property Name="Folio" Type="int" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="ProjectID" Type="int" />
+          <Property Name="DeviceID" Type="int" />
+          <Property Name="DocumentID" Type="uniqueidentifier" />
+          <Property Name="Details" Type="nvarchar" MaxLength="200" />
+          <Property Name="MachineName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ClientInfo" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="CodeImageLog">
+          <Key>
+            <PropertyRef Name="CodeImageLogID" />
+          </Key>
+          <Property Name="CodeImageLogID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CypherKeyID" Type="int" Nullable="false" />
+          <Property Name="Station" Type="int" Nullable="false" />
+          <Property Name="Folio" Type="bigint" Nullable="false" />
+          <Property Name="Image" Type="varbinary(max)" Nullable="false" />
+          <Property Name="CopyNumber" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Configuration">
+          <Key>
+            <PropertyRef Name="ConfigurationID" />
+          </Key>
+          <Property Name="ConfigurationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="250" />
+          <Property Name="CreationDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ConfigurationDetail">
+          <Key>
+            <PropertyRef Name="ConfigurationDetailID" />
+          </Key>
+          <Property Name="ConfigurationDetailID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ConfigurationID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="200" />
+          <Property Name="Order" Type="smallint" />
+          <Property Name="DataTypeID" Type="smallint" Nullable="false" />
+          <Property Name="Bytes" Type="int" />
+          <Property Name="Value" Type="varchar(max)" />
+          <Property Name="DeviceTypeID" Type="int" Nullable="false" />
+          <Property Name="IsCodeConfig" Type="bit" />
+          <Property Name="CreationDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CypherKey">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SerialNumber" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="Station" Type="int" />
+          <Property Name="OperationPassword" Type="varchar" MaxLength="100" />
+          <Property Name="ConfigurationPassword" Type="varchar" MaxLength="100" />
+          <Property Name="ConfigurationDate" Type="smalldatetime" />
+          <Property Name="CodeConfigID" Type="bigint" />
+          <Property Name="CypherConfigID" Type="int" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
+          <Property Name="CurrentCounter" Type="bigint" />
+          <Property Name="MaximumCounter" Type="int" Nullable="false" />
+          <Property Name="RemainingFolios" Type="bigint" StoreGeneratedPattern="Computed" />
+          <Property Name="DeviceID" Type="int" />
+          <Property Name="InitialCounter" Type="int" Nullable="false" />
+          <Property Name="Caducity" Type="smalldatetime" />
+          <Property Name="HW_Version" Type="nvarchar" MaxLength="50" />
+          <Property Name="FW_Version" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CypherKeyConfigLog">
+          <Key>
+            <PropertyRef Name="LogID" />
+          </Key>
+          <Property Name="LogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SerialNumber" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="OperationPassword" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ConfigurationPassword" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="InitialCounter" Type="int" Nullable="false" />
+          <Property Name="MaximumCounter" Type="int" Nullable="false" />
+          <Property Name="Caducity" Type="smalldatetime" Nullable="false" />
+          <Property Name="ConfigurationDate" Type="smalldatetime" Nullable="false" />
+          <Property Name="Operation" Type="smallint" Nullable="false" />
+          <Property Name="RemainingFolios" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CypherKeyConfiguration">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="InitialCounter" Type="int" Nullable="false" />
+          <Property Name="MaximumCounter" Type="int" Nullable="false" />
+          <Property Name="Caducity" Type="smalldatetime" Nullable="false" />
+          <Property Name="Comments" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CypherKeyLog">
+          <Key>
+            <PropertyRef Name="LogID" />
+          </Key>
+          <Property Name="LogID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CypherKeyID" Type="int" Nullable="false" />
+          <Property Name="SerialNumber" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="CurrentCounter" Type="bigint" />
+          <Property Name="StatusID" Type="smallint" Nullable="false" />
+          <Property Name="OperationID" Type="smallint" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="CodeConfigurationID" Type="bigint" />
+          <Property Name="LogDate" Type="datetime" />
+          <Property Name="HW_Version" Type="nvarchar" MaxLength="50" />
+          <Property Name="FW_Version" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CypherKeyStatus">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="smallint" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="dAssignationDevice">
+          <Key>
+            <PropertyRef Name="AssignationID" />
+            <PropertyRef Name="DeviceID" />
+          </Key>
+          <Property Name="AssignationID" Type="int" Nullable="false" />
+          <Property Name="DeviceID" Type="int" Nullable="false" />
+          <Property Name="ParentID" Type="int" />
+        </EntityType>
+        <EntityType Name="DataType">
+          <Key>
+            <PropertyRef Name="DataTypeID" />
+          </Key>
+          <Property Name="DataTypeID" Type="smallint" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="dDevolutionDevice">
+          <Key>
+            <PropertyRef Name="DevolutionID" />
+            <PropertyRef Name="DeviceID" />
+            <PropertyRef Name="AssignationID" />
+          </Key>
+          <Property Name="DevolutionID" Type="int" Nullable="false" />
+          <Property Name="DeviceID" Type="int" Nullable="false" />
+          <Property Name="AssignationID" Type="int" Nullable="false" />
+          <Property Name="ParentID" Type="int" />
+        </EntityType>
+        <EntityType Name="EventLog">
+          <Key>
+            <PropertyRef Name="EventLogID" />
+          </Key>
+          <Property Name="EventLogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="127" />
+          <Property Name="ProfileID" Type="int" />
+          <Property Name="ProfileName" Type="varchar" MaxLength="50" />
+          <Property Name="OperationID" Type="int" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="UserLogin" Type="varchar" MaxLength="50" />
+          <Property Name="ApplicationID" Type="int" />
+        </EntityType>
+        <EntityType Name="mAssignations">
+          <Key>
+            <PropertyRef Name="AssignationID" />
+          </Key>
+          <Property Name="AssignationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AssignationDate" Type="datetime" Nullable="false" />
+          <Property Name="MaxDeliveryDate" Type="datetime" Nullable="false" />
+          <Property Name="Comment" Type="varchar" MaxLength="255" />
+          <Property Name="AssignedUserID" Type="int" Nullable="false" />
+          <Property Name="OwnerUserID" Type="int" Nullable="false" />
+          <Property Name="AssignationTicketID" Type="varchar" MaxLength="20" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mDevices">
+          <Key>
+            <PropertyRef Name="DeviceID" />
+          </Key>
+          <Property Name="DeviceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Serial" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="DeviceTypeID" Type="int" Nullable="false" />
+          <Property Name="Comments" Type="varchar" MaxLength="50" />
+          <Property Name="ParentDeviceID" Type="int" />
+          <Property Name="MaintenanceDate" Type="smalldatetime" />
+          <Property Name="WarrantyDate" Type="smalldatetime" />
+          <Property Name="ProjectID" Type="int" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mDeviceTypes">
+          <Key>
+            <PropertyRef Name="TypeID" />
+          </Key>
+          <Property Name="TypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Model" Type="varchar" MaxLength="50" />
+          <Property Name="Comments" Type="varchar" MaxLength="50" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mDevolutions">
+          <Key>
+            <PropertyRef Name="DevolutionID" />
+          </Key>
+          <Property Name="DevolutionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeliveryDate" Type="datetime" Nullable="false" />
+          <Property Name="Comment" Type="varchar" MaxLength="255" />
+          <Property Name="OwnerUserID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="DevolutionTicketID" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="mProjects">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectName" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="ClientName" Type="varchar" MaxLength="100" />
+          <Property Name="Description" Type="varchar" MaxLength="100" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="Territory" Type="varchar" MaxLength="50" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+          <Property Name="FoliosAlert" Type="int" Nullable="false" />
+          <Property Name="ExpirationAlert" Type="int" Nullable="false" />
+          <Property Name="ProjectIDWP" Type="int" />
+        </EntityType>
+        <EntityType Name="mStatus">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Type" Type="int" />
+        </EntityType>
+        <EntityType Name="mStatusTypes">
+          <Key>
+            <PropertyRef Name="TypeID" />
+          </Key>
+          <Property Name="TypeID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mTerritory">
+          <Key>
+            <PropertyRef Name="IdTerritory" />
+          </Key>
+          <Property Name="IdTerritory" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Territory" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ShortName" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Operation">
+          <Key>
+            <PropertyRef Name="OperationID" />
+          </Key>
+          <Property Name="OperationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OperationName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Project_LastZippedRequets">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectID" Type="int" Nullable="false" />
+          <Property Name="WPSZippedFile" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QrCodeGenLog">
+          <Key>
+            <PropertyRef Name="QrCodeGenLogID" />
+          </Key>
+          <Property Name="QrCodeGenLogID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QrData" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="GeneratedDate" Type="datetime" Nullable="false" />
+          <Property Name="QrVersion" Type="tinyint" Nullable="false" />
+          <Property Name="QrCodeErrorCorrection" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="QrCodeEncoding" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="ObjectGUID" Type="uniqueidentifier" />
+          <Property Name="Comment" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'WP.SIITGSG2.DeviceDomainCore.dbo.WPA' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="WPA">
+          <Key>
+            <PropertyRef Name="WPSID" />
+            <PropertyRef Name="ExpirationFile" />
+            <PropertyRef Name="AuthorizedMaxFolios" />
+            <PropertyRef Name="AuthorizedExpiration" />
+            <PropertyRef Name="ApplyDate" />
+          </Key>
+          <Property Name="WPSID" Type="int" Nullable="false" />
+          <Property Name="ExpirationFile" Type="datetime" Nullable="false" />
+          <Property Name="AuthorizedMaxFolios" Type="int" Nullable="false" />
+          <Property Name="AuthorizedExpiration" Type="datetime" Nullable="false" />
+          <Property Name="ApplyDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'WP.SIITGSG2.DeviceDomainCore.dbo.WPS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="WPS">
+          <Key>
+            <PropertyRef Name="WPSID" />
+            <PropertyRef Name="WPSFilePath" />
+            <PropertyRef Name="WPSExpiration" />
+            <PropertyRef Name="StatusID" />
+            <PropertyRef Name="IdProjectWP" />
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="KeySerialNumber" />
+            <PropertyRef Name="KeyInitialCounter" />
+            <PropertyRef Name="KeyCurrentCounter" />
+            <PropertyRef Name="KeyMaxFolios" />
+            <PropertyRef Name="KeyExpirationDate" />
+            <PropertyRef Name="RequestFolios" />
+            <PropertyRef Name="RequestTypeID" />
+            <PropertyRef Name="IsAuthorized" />
+            <PropertyRef Name="OwnerUser" />
+            <PropertyRef Name="CreationDate" />
+          </Key>
+          <Property Name="WPSID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WPSFilePath" Type="varchar(max)" Nullable="false" />
+          <Property Name="WPSFolio" Type="varchar" MaxLength="10" />
+          <Property Name="WPSExpiration" Type="datetime" Nullable="false" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+          <Property Name="IdProjectWP" Type="int" Nullable="false" />
+          <Property Name="ProjectName" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="KeySerialNumber" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="KeyStatus" Type="varchar" MaxLength="50" />
+          <Property Name="KeyInitialCounter" Type="bigint" Nullable="false" />
+          <Property Name="KeyCurrentCounter" Type="bigint" Nullable="false" />
+          <Property Name="KeyMaxFolios" Type="bigint" Nullable="false" />
+          <Property Name="KeyExpirationDate" Type="datetime" Nullable="false" />
+          <Property Name="RequestFolios" Type="int" Nullable="false" />
+          <Property Name="RequestExpiration" Type="datetime" />
+          <Property Name="RequestTypeID" Type="int" Nullable="false" />
+          <Property Name="IsAuthorized" Type="bit" Nullable="false" />
+          <Property Name="OwnerUser" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WPSTypes">
+          <Key>
+            <PropertyRef Name="RequestTypeID" />
+          </Key>
+          <Property Name="RequestTypeID" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CodeConfigurationDetail_Configuration">
+          <End Role="CodeConfiguration" Type="Self.CodeConfiguration" Multiplicity="1" />
+          <End Role="CodeConfigurationDetail" Type="Self.CodeConfigurationDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeConfiguration">
+              <PropertyRef Name="ConfigurationID" />
+            </Principal>
+            <Dependent Role="CodeConfigurationDetail">
+              <PropertyRef Name="ConfigurationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CodeConfigurationDetail_DataType">
+          <End Role="DataType" Type="Self.DataType" Multiplicity="1" />
+          <End Role="CodeConfigurationDetail" Type="Self.CodeConfigurationDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataType">
+              <PropertyRef Name="DataTypeID" />
+            </Principal>
+            <Dependent Role="CodeConfigurationDetail">
+              <PropertyRef Name="FieldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CodeDataLog_DataType">
+          <End Role="DataType" Type="Self.DataType" Multiplicity="1" />
+          <End Role="CodeDataLog" Type="Self.CodeDataLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataType">
+              <PropertyRef Name="DataTypeID" />
+            </Principal>
+            <Dependent Role="CodeDataLog">
+              <PropertyRef Name="FieldTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConfigurationDetail_Configuration">
+          <End Role="Configuration" Type="Self.Configuration" Multiplicity="1" />
+          <End Role="ConfigurationDetail" Type="Self.ConfigurationDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration">
+              <PropertyRef Name="ConfigurationID" />
+            </Principal>
+            <Dependent Role="ConfigurationDetail">
+              <PropertyRef Name="ConfigurationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConfigurationDetail_DataType">
+          <End Role="DataType" Type="Self.DataType" Multiplicity="1" />
+          <End Role="ConfigurationDetail" Type="Self.ConfigurationDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataType">
+              <PropertyRef Name="DataTypeID" />
+            </Principal>
+            <Dependent Role="ConfigurationDetail">
+              <PropertyRef Name="DataTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CypherKey_CodeConfiguration1">
+          <End Role="CodeConfiguration" Type="Self.CodeConfiguration" Multiplicity="0..1" />
+          <End Role="CypherKey" Type="Self.CypherKey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeConfiguration">
+              <PropertyRef Name="ConfigurationID" />
+            </Principal>
+            <Dependent Role="CypherKey">
+              <PropertyRef Name="CodeConfigID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CypherKey_CypherKeyConfiguration">
+          <End Role="CypherKeyConfiguration" Type="Self.CypherKeyConfiguration" Multiplicity="0..1" />
+          <End Role="CypherKey" Type="Self.CypherKey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CypherKeyConfiguration">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CypherKey">
+              <PropertyRef Name="CypherConfigID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CypherKey_CypherKeyStatus">
+          <End Role="CypherKeyStatus" Type="Self.CypherKeyStatus" Multiplicity="1" />
+          <End Role="CypherKey" Type="Self.CypherKey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CypherKeyStatus">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="CypherKey">
+              <PropertyRef Name="Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CypherKeyLog_CypherKey">
+          <End Role="CypherKey" Type="Self.CypherKey" Multiplicity="1" />
+          <End Role="CypherKeyLog" Type="Self.CypherKeyLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CypherKey">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CypherKeyLog">
+              <PropertyRef Name="CypherKeyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dAssignationDevice_mAssignations">
+          <End Role="mAssignations" Type="Self.mAssignations" Multiplicity="1" />
+          <End Role="dAssignationDevice" Type="Self.dAssignationDevice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mAssignations">
+              <PropertyRef Name="AssignationID" />
+            </Principal>
+            <Dependent Role="dAssignationDevice">
+              <PropertyRef Name="AssignationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dAssignationDevice_mDevices">
+          <End Role="mDevices" Type="Self.mDevices" Multiplicity="1" />
+          <End Role="dAssignationDevice" Type="Self.dAssignationDevice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mDevices">
+              <PropertyRef Name="DeviceID" />
+            </Principal>
+            <Dependent Role="dAssignationDevice">
+              <PropertyRef Name="DeviceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dAssignationDevice_mDevices1">
+          <End Role="mDevices" Type="Self.mDevices" Multiplicity="0..1" />
+          <End Role="dAssignationDevice" Type="Self.dAssignationDevice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mDevices">
+              <PropertyRef Name="DeviceID" />
+            </Principal>
+            <Dependent Role="dAssignationDevice">
+              <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dDevolutionDevice_dAssignationDevice">
+          <End Role="dAssignationDevice" Type="Self.dAssignationDevice" Multiplicity="1" />
+          <End Role="dDevolutionDevice" Type="Self.dDevolutionDevice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dAssignationDevice">
+              <PropertyRef Name="AssignationID" />
+              <PropertyRef Name="DeviceID" />
+            </Principal>
+            <Dependent Role="dDevolutionDevice">
+              <PropertyRef Name="AssignationID" />
+              <PropertyRef Name="DeviceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dDevolutionDevice_mDevolutions">
+          <End Role="mDevolutions" Type="Self.mDevolutions" Multiplicity="1" />
+          <End Role="dDevolutionDevice" Type="Self.dDevolutionDevice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mDevolutions">
+              <PropertyRef Name="DevolutionID" />
+            </Principal>
+            <Dependent Role="dDevolutionDevice">
+              <PropertyRef Name="DevolutionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mAssignations_mStatus">
+          <End Role="mStatus" Type="Self.mStatus" Multiplicity="1" />
+          <End Role="mAssignations" Type="Self.mAssignations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mStatus">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="mAssignations">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mDevices_mDevices1">
+          <End Role="mDevices" Type="Self.mDevices" Multiplicity="0..1" />
+          <End Role="mDevices1" Type="Self.mDevices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mDevices">
+              <PropertyRef Name="DeviceID" />
+            </Principal>
+            <Dependent Role="mDevices1">
+              <PropertyRef Name="ParentDeviceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mDevices_mDeviceTypes">
+          <End Role="mDeviceTypes" Type="Self.mDeviceTypes" Multiplicity="1" />
+          <End Role="mDevices" Type="Self.mDevices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mDeviceTypes">
+              <PropertyRef Name="TypeID" />
+            </Principal>
+            <Dependent Role="mDevices">
+              <PropertyRef Name="DeviceTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mDevices_mStatus">
+          <End Role="mStatus" Type="Self.mStatus" Multiplicity="1" />
+          <End Role="mDevices" Type="Self.mDevices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mStatus">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="mDevices">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mDeviceTypes_mStatus">
+          <End Role="mStatus" Type="Self.mStatus" Multiplicity="1" />
+          <End Role="mDeviceTypes" Type="Self.mDeviceTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mStatus">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="mDeviceTypes">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mStatus_mStatusTypes">
+          <End Role="mStatusTypes" Type="Self.mStatusTypes" Multiplicity="0..1" />
+          <End Role="mStatus" Type="Self.mStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mStatusTypes">
+              <PropertyRef Name="TypeID" />
+            </Principal>
+            <Dependent Role="mStatus">
+              <PropertyRef Name="Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DeviceDomainCoreModelStoreContainer">
+          <EntitySet Name="CodeConfiguration" EntityType="Self.CodeConfiguration" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CodeConfigurationDetail" EntityType="Self.CodeConfigurationDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CodeDataLog" EntityType="Self.CodeDataLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CodeGen2DLog" EntityType="Self.CodeGen2DLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CodeImageLog" EntityType="Self.CodeImageLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Configuration" EntityType="Self.Configuration" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ConfigurationDetail" EntityType="Self.ConfigurationDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CypherKey" EntityType="Self.CypherKey" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CypherKeyConfigLog" EntityType="Self.CypherKeyConfigLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CypherKeyConfiguration" EntityType="Self.CypherKeyConfiguration" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CypherKeyLog" EntityType="Self.CypherKeyLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CypherKeyStatus" EntityType="Self.CypherKeyStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="dAssignationDevice" EntityType="Self.dAssignationDevice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DataType" EntityType="Self.DataType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="dDevolutionDevice" EntityType="Self.dDevolutionDevice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventLog" EntityType="Self.EventLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mAssignations" EntityType="Self.mAssignations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mDevices" EntityType="Self.mDevices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mDeviceTypes" EntityType="Self.mDeviceTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mDevolutions" EntityType="Self.mDevolutions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mProjects" EntityType="Self.mProjects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mStatus" EntityType="Self.mStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mStatusTypes" EntityType="Self.mStatusTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mTerritory" EntityType="Self.mTerritory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Operation" EntityType="Self.Operation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Project_LastZippedRequets" EntityType="Self.Project_LastZippedRequets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QrCodeGenLog" EntityType="Self.QrCodeGenLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WPSTypes" EntityType="Self.WPSTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WPA" EntityType="Self.WPA" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [WPA].[WPSID] AS [WPSID], 
+    [WPA].[ExpirationFile] AS [ExpirationFile], 
+    [WPA].[AuthorizedMaxFolios] AS [AuthorizedMaxFolios], 
+    [WPA].[AuthorizedExpiration] AS [AuthorizedExpiration], 
+    [WPA].[ApplyDate] AS [ApplyDate]
+    FROM [dbo].[WPA] AS [WPA]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="WPS" EntityType="Self.WPS" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [WPS].[WPSID] AS [WPSID], 
+    [WPS].[WPSFilePath] AS [WPSFilePath], 
+    [WPS].[WPSFolio] AS [WPSFolio], 
+    [WPS].[WPSExpiration] AS [WPSExpiration], 
+    [WPS].[StatusID] AS [StatusID], 
+    [WPS].[IdProjectWP] AS [IdProjectWP], 
+    [WPS].[ProjectName] AS [ProjectName], 
+    [WPS].[KeySerialNumber] AS [KeySerialNumber], 
+    [WPS].[KeyStatus] AS [KeyStatus], 
+    [WPS].[KeyInitialCounter] AS [KeyInitialCounter], 
+    [WPS].[KeyCurrentCounter] AS [KeyCurrentCounter], 
+    [WPS].[KeyMaxFolios] AS [KeyMaxFolios], 
+    [WPS].[KeyExpirationDate] AS [KeyExpirationDate], 
+    [WPS].[RequestFolios] AS [RequestFolios], 
+    [WPS].[RequestExpiration] AS [RequestExpiration], 
+    [WPS].[RequestTypeID] AS [RequestTypeID], 
+    [WPS].[IsAuthorized] AS [IsAuthorized], 
+    [WPS].[OwnerUser] AS [OwnerUser], 
+    [WPS].[CreationDate] AS [CreationDate]
+    FROM [dbo].[WPS] AS [WPS]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_CodeConfigurationDetail_Configuration" Association="Self.FK_CodeConfigurationDetail_Configuration">
+            <End Role="CodeConfiguration" EntitySet="CodeConfiguration" />
+            <End Role="CodeConfigurationDetail" EntitySet="CodeConfigurationDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CodeConfigurationDetail_DataType" Association="Self.FK_CodeConfigurationDetail_DataType">
+            <End Role="DataType" EntitySet="DataType" />
+            <End Role="CodeConfigurationDetail" EntitySet="CodeConfigurationDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CodeDataLog_DataType" Association="Self.FK_CodeDataLog_DataType">
+            <End Role="DataType" EntitySet="DataType" />
+            <End Role="CodeDataLog" EntitySet="CodeDataLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConfigurationDetail_Configuration" Association="Self.FK_ConfigurationDetail_Configuration">
+            <End Role="Configuration" EntitySet="Configuration" />
+            <End Role="ConfigurationDetail" EntitySet="ConfigurationDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConfigurationDetail_DataType" Association="Self.FK_ConfigurationDetail_DataType">
+            <End Role="DataType" EntitySet="DataType" />
+            <End Role="ConfigurationDetail" EntitySet="ConfigurationDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CypherKey_CodeConfiguration1" Association="Self.FK_CypherKey_CodeConfiguration1">
+            <End Role="CodeConfiguration" EntitySet="CodeConfiguration" />
+            <End Role="CypherKey" EntitySet="CypherKey" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CypherKey_CypherKeyConfiguration" Association="Self.FK_CypherKey_CypherKeyConfiguration">
+            <End Role="CypherKeyConfiguration" EntitySet="CypherKeyConfiguration" />
+            <End Role="CypherKey" EntitySet="CypherKey" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CypherKey_CypherKeyStatus" Association="Self.FK_CypherKey_CypherKeyStatus">
+            <End Role="CypherKeyStatus" EntitySet="CypherKeyStatus" />
+            <End Role="CypherKey" EntitySet="CypherKey" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CypherKeyLog_CypherKey" Association="Self.FK_CypherKeyLog_CypherKey">
+            <End Role="CypherKey" EntitySet="CypherKey" />
+            <End Role="CypherKeyLog" EntitySet="CypherKeyLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dAssignationDevice_mAssignations" Association="Self.FK_dAssignationDevice_mAssignations">
+            <End Role="mAssignations" EntitySet="mAssignations" />
+            <End Role="dAssignationDevice" EntitySet="dAssignationDevice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dAssignationDevice_mDevices" Association="Self.FK_dAssignationDevice_mDevices">
+            <End Role="mDevices" EntitySet="mDevices" />
+            <End Role="dAssignationDevice" EntitySet="dAssignationDevice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dAssignationDevice_mDevices1" Association="Self.FK_dAssignationDevice_mDevices1">
+            <End Role="mDevices" EntitySet="mDevices" />
+            <End Role="dAssignationDevice" EntitySet="dAssignationDevice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dDevolutionDevice_dAssignationDevice" Association="Self.FK_dDevolutionDevice_dAssignationDevice">
+            <End Role="dAssignationDevice" EntitySet="dAssignationDevice" />
+            <End Role="dDevolutionDevice" EntitySet="dDevolutionDevice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dDevolutionDevice_mDevolutions" Association="Self.FK_dDevolutionDevice_mDevolutions">
+            <End Role="mDevolutions" EntitySet="mDevolutions" />
+            <End Role="dDevolutionDevice" EntitySet="dDevolutionDevice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mAssignations_mStatus" Association="Self.FK_mAssignations_mStatus">
+            <End Role="mStatus" EntitySet="mStatus" />
+            <End Role="mAssignations" EntitySet="mAssignations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mDevices_mDevices1" Association="Self.FK_mDevices_mDevices1">
+            <End Role="mDevices" EntitySet="mDevices" />
+            <End Role="mDevices1" EntitySet="mDevices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mDevices_mDeviceTypes" Association="Self.FK_mDevices_mDeviceTypes">
+            <End Role="mDeviceTypes" EntitySet="mDeviceTypes" />
+            <End Role="mDevices" EntitySet="mDevices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mDevices_mStatus" Association="Self.FK_mDevices_mStatus">
+            <End Role="mStatus" EntitySet="mStatus" />
+            <End Role="mDevices" EntitySet="mDevices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mDeviceTypes_mStatus" Association="Self.FK_mDeviceTypes_mStatus">
+            <End Role="mStatus" EntitySet="mStatus" />
+            <End Role="mDeviceTypes" EntitySet="mDeviceTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mStatus_mStatusTypes" Association="Self.FK_mStatus_mStatusTypes">
+            <End Role="mStatusTypes" EntitySet="mStatusTypes" />
+            <End Role="mStatus" EntitySet="mStatus" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DeviceDomainCoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CodeConfiguration">
+          <Key>
+            <PropertyRef Name="ConfigurationID" />
+          </Key>
+          <Property Name="ConfigurationID" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="HorizontalClusters" Type="Int16" />
+          <Property Name="VerticalClusters" Type="Int16" />
+          <Property Name="RandomBytes" Type="Int16" />
+          <Property Name="CopiesNumber" Type="Int16" />
+          <Property Name="CreationDate" Type="DateTime" Precision="0" />
+          <Property Name="PixelRatio" Type="Int16" Nullable="false" />
+          <Property Name="Percentage" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CodeConfigurationDetail" Relationship="Self.FK_CodeConfigurationDetail_Configuration" FromRole="CodeConfiguration" ToRole="CodeConfigurationDetail" />
+          <NavigationProperty Name="CypherKey" Relationship="Self.FK_CypherKey_CodeConfiguration1" FromRole="CodeConfiguration" ToRole="CypherKey" />
+        </EntityType>
+        <EntityType Name="CodeConfigurationDetail">
+          <Key>
+            <PropertyRef Name="ConfigurationID" />
+            <PropertyRef Name="FieldID" />
+          </Key>
+          <Property Name="ConfigurationID" Type="Int64" Nullable="false" />
+          <Property Name="FieldID" Type="Int16" Nullable="false" />
+          <Property Name="Bytes" Type="Int32" />
+          <Property Name="FieldTypeID" Type="Int16" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CodeConfiguration" Relationship="Self.FK_CodeConfigurationDetail_Configuration" FromRole="CodeConfigurationDetail" ToRole="CodeConfiguration" />
+          <NavigationProperty Name="DataType" Relationship="Self.FK_CodeConfigurationDetail_DataType" FromRole="CodeConfigurationDetail" ToRole="DataType" />
+        </EntityType>
+        <EntityType Name="CodeDataLog">
+          <Key>
+            <PropertyRef Name="CodeDataLogID" />
+          </Key>
+          <Property Name="CodeDataLogID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CypherKeyID" Type="Int32" Nullable="false" />
+          <Property Name="Folio" Type="Int64" Nullable="false" />
+          <Property Name="FieldTypeID" Type="Int16" Nullable="false" />
+          <Property Name="Bytes" Type="Int32" Nullable="false" />
+          <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="DataType" Relationship="Self.FK_CodeDataLog_DataType" FromRole="CodeDataLog" ToRole="DataType" />
+        </EntityType>
+        <EntityType Name="CodeGen2DLog">
+          <Key>
+            <PropertyRef Name="CodeGen2DLogID" />
+          </Key>
+          <Property Name="CodeGen2DLogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Station" Type="Int32" />
+          <Property Name="Folio" Type="Int32" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="ProjectID" Type="Int32" />
+          <Property Name="DeviceID" Type="Int32" />
+          <Property Name="DocumentID" Type="Guid" />
+          <Property Name="Details" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MachineName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClientInfo" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CodeImageLog">
+          <Key>
+            <PropertyRef Name="CodeImageLogID" />
+          </Key>
+          <Property Name="CodeImageLogID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CypherKeyID" Type="Int32" Nullable="false" />
+          <Property Name="Station" Type="Int32" Nullable="false" />
+          <Property Name="Folio" Type="Int64" Nullable="false" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="CopyNumber" Type="Int16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Configuration">
+          <Key>
+            <PropertyRef Name="ConfigurationID" />
+          </Key>
+          <Property Name="ConfigurationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ConfigurationDetail" Relationship="Self.FK_ConfigurationDetail_Configuration" FromRole="Configuration" ToRole="ConfigurationDetail" />
+        </EntityType>
+        <EntityType Name="ConfigurationDetail">
+          <Key>
+            <PropertyRef Name="ConfigurationDetailID" />
+          </Key>
+          <Property Name="ConfigurationDetailID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ConfigurationID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Order" Type="Int16" />
+          <Property Name="DataTypeID" Type="Int16" Nullable="false" />
+          <Property Name="Bytes" Type="Int32" />
+          <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DeviceTypeID" Type="Int32" Nullable="false" />
+          <Property Name="IsCodeConfig" Type="Boolean" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Configuration" Relationship="Self.FK_ConfigurationDetail_Configuration" FromRole="ConfigurationDetail" ToRole="Configuration" />
+          <NavigationProperty Name="DataType" Relationship="Self.FK_ConfigurationDetail_DataType" FromRole="ConfigurationDetail" ToRole="DataType" />
+        </EntityType>
+        <EntityType Name="CypherKey">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SerialNumber" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Station" Type="Int32" />
+          <Property Name="OperationPassword" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ConfigurationPassword" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ConfigurationDate" Type="DateTime" Precision="0" />
+          <Property Name="CodeConfigID" Type="Int64" />
+          <Property Name="CypherConfigID" Type="Int32" />
+          <Property Name="Status" Type="Int16" Nullable="false" />
+          <Property Name="CurrentCounter" Type="Int64" />
+          <Property Name="MaximumCounter" Type="Int32" Nullable="false" />
+          <Property Name="RemainingFolios" Type="Int64" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="DeviceID" Type="Int32" />
+          <Property Name="InitialCounter" Type="Int32" Nullable="false" />
+          <Property Name="Caducity" Type="DateTime" Precision="0" />
+          <Property Name="HW_Version" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FW_Version" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CodeConfiguration" Relationship="Self.FK_CypherKey_CodeConfiguration1" FromRole="CypherKey" ToRole="CodeConfiguration" />
+          <NavigationProperty Name="CypherKeyConfiguration" Relationship="Self.FK_CypherKey_CypherKeyConfiguration" FromRole="CypherKey" ToRole="CypherKeyConfiguration" />
+          <NavigationProperty Name="CypherKeyStatus" Relationship="Self.FK_CypherKey_CypherKeyStatus" FromRole="CypherKey" ToRole="CypherKeyStatus" />
+          <NavigationProperty Name="CypherKeyLog" Relationship="Self.FK_CypherKeyLog_CypherKey" FromRole="CypherKey" ToRole="CypherKeyLog" />
+        </EntityType>
+        <EntityType Name="CypherKeyConfigLog">
+          <Key>
+            <PropertyRef Name="LogID" />
+          </Key>
+          <Property Name="LogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SerialNumber" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OperationPassword" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ConfigurationPassword" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="InitialCounter" Type="Int32" Nullable="false" />
+          <Property Name="MaximumCounter" Type="Int32" Nullable="false" />
+          <Property Name="Caducity" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ConfigurationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Operation" Type="Int16" Nullable="false" />
+          <Property Name="RemainingFolios" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CypherKeyConfiguration">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="InitialCounter" Type="Int32" Nullable="false" />
+          <Property Name="MaximumCounter" Type="Int32" Nullable="false" />
+          <Property Name="Caducity" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Comments" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CypherKey" Relationship="Self.FK_CypherKey_CypherKeyConfiguration" FromRole="CypherKeyConfiguration" ToRole="CypherKey" />
+        </EntityType>
+        <EntityType Name="CypherKeyLog">
+          <Key>
+            <PropertyRef Name="LogID" />
+          </Key>
+          <Property Name="LogID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CypherKeyID" Type="Int32" Nullable="false" />
+          <Property Name="SerialNumber" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CurrentCounter" Type="Int64" />
+          <Property Name="StatusID" Type="Int16" Nullable="false" />
+          <Property Name="OperationID" Type="Int16" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="CodeConfigurationID" Type="Int64" />
+          <Property Name="LogDate" Type="DateTime" Precision="3" />
+          <Property Name="HW_Version" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FW_Version" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CypherKey" Relationship="Self.FK_CypherKeyLog_CypherKey" FromRole="CypherKeyLog" ToRole="CypherKey" />
+        </EntityType>
+        <EntityType Name="CypherKeyStatus">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="Int16" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CypherKey" Relationship="Self.FK_CypherKey_CypherKeyStatus" FromRole="CypherKeyStatus" ToRole="CypherKey" />
+        </EntityType>
+        <EntityType Name="dAssignationDevice">
+          <Key>
+            <PropertyRef Name="AssignationID" />
+            <PropertyRef Name="DeviceID" />
+          </Key>
+          <Property Name="AssignationID" Type="Int32" Nullable="false" />
+          <Property Name="DeviceID" Type="Int32" Nullable="false" />
+          <Property Name="ParentID" Type="Int32" />
+          <NavigationProperty Name="mAssignations" Relationship="Self.FK_dAssignationDevice_mAssignations" FromRole="dAssignationDevice" ToRole="mAssignations" />
+          <NavigationProperty Name="mDevices" Relationship="Self.FK_dAssignationDevice_mDevices" FromRole="dAssignationDevice" ToRole="mDevices" />
+          <NavigationProperty Name="mDevices1" Relationship="Self.FK_dAssignationDevice_mDevices1" FromRole="dAssignationDevice" ToRole="mDevices" />
+          <NavigationProperty Name="dDevolutionDevice" Relationship="Self.FK_dDevolutionDevice_dAssignationDevice" FromRole="dAssignationDevice" ToRole="dDevolutionDevice" />
+        </EntityType>
+        <EntityType Name="DataType">
+          <Key>
+            <PropertyRef Name="DataTypeID" />
+          </Key>
+          <Property Name="DataTypeID" Type="Int16" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CodeConfigurationDetail" Relationship="Self.FK_CodeConfigurationDetail_DataType" FromRole="DataType" ToRole="CodeConfigurationDetail" />
+          <NavigationProperty Name="CodeDataLog" Relationship="Self.FK_CodeDataLog_DataType" FromRole="DataType" ToRole="CodeDataLog" />
+          <NavigationProperty Name="ConfigurationDetail" Relationship="Self.FK_ConfigurationDetail_DataType" FromRole="DataType" ToRole="ConfigurationDetail" />
+        </EntityType>
+        <EntityType Name="dDevolutionDevice">
+          <Key>
+            <PropertyRef Name="DevolutionID" />
+            <PropertyRef Name="DeviceID" />
+            <PropertyRef Name="AssignationID" />
+          </Key>
+          <Property Name="DevolutionID" Type="Int32" Nullable="false" />
+          <Property Name="DeviceID" Type="Int32" Nullable="false" />
+          <Property Name="AssignationID" Type="Int32" Nullable="false" />
+          <Property Name="ParentID" Type="Int32" />
+          <NavigationProperty Name="dAssignationDevice" Relationship="Self.FK_dDevolutionDevice_dAssignationDevice" FromRole="dDevolutionDevice" ToRole="dAssignationDevice" />
+          <NavigationProperty Name="mDevolutions" Relationship="Self.FK_dDevolutionDevice_mDevolutions" FromRole="dDevolutionDevice" ToRole="mDevolutions" />
+        </EntityType>
+        <EntityType Name="EventLog">
+          <Key>
+            <PropertyRef Name="EventLogID" />
+          </Key>
+          <Property Name="EventLogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="127" FixedLength="false" Unicode="false" />
+          <Property Name="ProfileID" Type="Int32" />
+          <Property Name="ProfileName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OperationID" Type="Int32" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserLogin" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApplicationID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="mAssignations">
+          <Key>
+            <PropertyRef Name="AssignationID" />
+          </Key>
+          <Property Name="AssignationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AssignationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MaxDeliveryDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Comment" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AssignedUserID" Type="Int32" Nullable="false" />
+          <Property Name="OwnerUserID" Type="Int32" Nullable="false" />
+          <Property Name="AssignationTicketID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="dAssignationDevice" Relationship="Self.FK_dAssignationDevice_mAssignations" FromRole="mAssignations" ToRole="dAssignationDevice" />
+          <NavigationProperty Name="mStatus" Relationship="Self.FK_mAssignations_mStatus" FromRole="mAssignations" ToRole="mStatus" />
+        </EntityType>
+        <EntityType Name="mDevices">
+          <Key>
+            <PropertyRef Name="DeviceID" />
+          </Key>
+          <Property Name="DeviceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Serial" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DeviceTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Comments" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ParentDeviceID" Type="Int32" />
+          <Property Name="MaintenanceDate" Type="DateTime" Precision="0" />
+          <Property Name="WarrantyDate" Type="DateTime" Precision="0" />
+          <Property Name="ProjectID" Type="Int32" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="dAssignationDevice" Relationship="Self.FK_dAssignationDevice_mDevices" FromRole="mDevices" ToRole="dAssignationDevice" />
+          <NavigationProperty Name="dAssignationDevice1" Relationship="Self.FK_dAssignationDevice_mDevices1" FromRole="mDevices" ToRole="dAssignationDevice" />
+          <NavigationProperty Name="mDevices1" Relationship="Self.FK_mDevices_mDevices1" FromRole="mDevices" ToRole="mDevices1" />
+          <NavigationProperty Name="mDevices2" Relationship="Self.FK_mDevices_mDevices1" FromRole="mDevices1" ToRole="mDevices" />
+          <NavigationProperty Name="mDeviceTypes" Relationship="Self.FK_mDevices_mDeviceTypes" FromRole="mDevices" ToRole="mDeviceTypes" />
+          <NavigationProperty Name="mStatus" Relationship="Self.FK_mDevices_mStatus" FromRole="mDevices" ToRole="mStatus" />
+        </EntityType>
+        <EntityType Name="mDeviceTypes">
+          <Key>
+            <PropertyRef Name="TypeID" />
+          </Key>
+          <Property Name="TypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Comments" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="mDevices" Relationship="Self.FK_mDevices_mDeviceTypes" FromRole="mDeviceTypes" ToRole="mDevices" />
+          <NavigationProperty Name="mStatus" Relationship="Self.FK_mDeviceTypes_mStatus" FromRole="mDeviceTypes" ToRole="mStatus" />
+        </EntityType>
+        <EntityType Name="mDevolutions">
+          <Key>
+            <PropertyRef Name="DevolutionID" />
+          </Key>
+          <Property Name="DevolutionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeliveryDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Comment" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="OwnerUserID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="DevolutionTicketID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="dDevolutionDevice" Relationship="Self.FK_dDevolutionDevice_mDevolutions" FromRole="mDevolutions" ToRole="dDevolutionDevice" />
+        </EntityType>
+        <EntityType Name="mProjects">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ClientName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="Territory" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <Property Name="FoliosAlert" Type="Int32" Nullable="false" />
+          <Property Name="ExpirationAlert" Type="Int32" Nullable="false" />
+          <Property Name="ProjectIDWP" Type="Int32" />
+        </EntityType>
+        <EntityType Name="mStatus">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Type" Type="Int32" />
+          <NavigationProperty Name="mAssignations" Relationship="Self.FK_mAssignations_mStatus" FromRole="mStatus" ToRole="mAssignations" />
+          <NavigationProperty Name="mDevices" Relationship="Self.FK_mDevices_mStatus" FromRole="mStatus" ToRole="mDevices" />
+          <NavigationProperty Name="mDeviceTypes" Relationship="Self.FK_mDeviceTypes_mStatus" FromRole="mStatus" ToRole="mDeviceTypes" />
+          <NavigationProperty Name="mStatusTypes" Relationship="Self.FK_mStatus_mStatusTypes" FromRole="mStatus" ToRole="mStatusTypes" />
+        </EntityType>
+        <EntityType Name="mStatusTypes">
+          <Key>
+            <PropertyRef Name="TypeID" />
+          </Key>
+          <Property Name="TypeID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="mStatus" Relationship="Self.FK_mStatus_mStatusTypes" FromRole="mStatusTypes" ToRole="mStatus" />
+        </EntityType>
+        <EntityType Name="mTerritory">
+          <Key>
+            <PropertyRef Name="IdTerritory" />
+          </Key>
+          <Property Name="IdTerritory" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Territory" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ShortName" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Operation">
+          <Key>
+            <PropertyRef Name="OperationID" />
+          </Key>
+          <Property Name="OperationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OperationName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Project_LastZippedRequets">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+          <Property Name="WPSZippedFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QrCodeGenLog">
+          <Key>
+            <PropertyRef Name="QrCodeGenLogID" />
+          </Key>
+          <Property Name="QrCodeGenLogID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QrData" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="GeneratedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="QrVersion" Type="Byte" Nullable="false" />
+          <Property Name="QrCodeErrorCorrection" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="QrCodeEncoding" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ObjectGUID" Type="Guid" />
+          <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="WPSTypes">
+          <Key>
+            <PropertyRef Name="RequestTypeID" />
+          </Key>
+          <Property Name="RequestTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WPA">
+          <Key>
+            <PropertyRef Name="WPSID" />
+            <PropertyRef Name="ExpirationFile" />
+            <PropertyRef Name="AuthorizedMaxFolios" />
+            <PropertyRef Name="AuthorizedExpiration" />
+            <PropertyRef Name="ApplyDate" />
+          </Key>
+          <Property Name="WPSID" Type="Int32" Nullable="false" />
+          <Property Name="ExpirationFile" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AuthorizedMaxFolios" Type="Int32" Nullable="false" />
+          <Property Name="AuthorizedExpiration" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ApplyDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="WPS">
+          <Key>
+            <PropertyRef Name="WPSID" />
+            <PropertyRef Name="WPSFilePath" />
+            <PropertyRef Name="WPSExpiration" />
+            <PropertyRef Name="StatusID" />
+            <PropertyRef Name="IdProjectWP" />
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="KeySerialNumber" />
+            <PropertyRef Name="KeyInitialCounter" />
+            <PropertyRef Name="KeyCurrentCounter" />
+            <PropertyRef Name="KeyMaxFolios" />
+            <PropertyRef Name="KeyExpirationDate" />
+            <PropertyRef Name="RequestFolios" />
+            <PropertyRef Name="RequestTypeID" />
+            <PropertyRef Name="IsAuthorized" />
+            <PropertyRef Name="OwnerUser" />
+            <PropertyRef Name="CreationDate" />
+          </Key>
+          <Property Name="WPSID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WPSFilePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="WPSFolio" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="WPSExpiration" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <Property Name="IdProjectWP" Type="Int32" Nullable="false" />
+          <Property Name="ProjectName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="KeySerialNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="KeyStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="KeyInitialCounter" Type="Int64" Nullable="false" />
+          <Property Name="KeyCurrentCounter" Type="Int64" Nullable="false" />
+          <Property Name="KeyMaxFolios" Type="Int64" Nullable="false" />
+          <Property Name="KeyExpirationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RequestFolios" Type="Int32" Nullable="false" />
+          <Property Name="RequestExpiration" Type="DateTime" Precision="3" />
+          <Property Name="RequestTypeID" Type="Int32" Nullable="false" />
+          <Property Name="IsAuthorized" Type="Boolean" Nullable="false" />
+          <Property Name="OwnerUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <Association Name="FK_CodeConfigurationDetail_Configuration">
+          <End Role="CodeConfiguration" Type="Self.CodeConfiguration" Multiplicity="1" />
+          <End Role="CodeConfigurationDetail" Type="Self.CodeConfigurationDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeConfiguration">
+              <PropertyRef Name="ConfigurationID" />
+            </Principal>
+            <Dependent Role="CodeConfigurationDetail">
+              <PropertyRef Name="ConfigurationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CypherKey_CodeConfiguration1">
+          <End Role="CodeConfiguration" Type="Self.CodeConfiguration" Multiplicity="0..1" />
+          <End Role="CypherKey" Type="Self.CypherKey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeConfiguration">
+              <PropertyRef Name="ConfigurationID" />
+            </Principal>
+            <Dependent Role="CypherKey">
+              <PropertyRef Name="CodeConfigID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CodeConfigurationDetail_DataType">
+          <End Role="DataType" Type="Self.DataType" Multiplicity="1" />
+          <End Role="CodeConfigurationDetail" Type="Self.CodeConfigurationDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataType">
+              <PropertyRef Name="DataTypeID" />
+            </Principal>
+            <Dependent Role="CodeConfigurationDetail">
+              <PropertyRef Name="FieldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CodeDataLog_DataType">
+          <End Role="DataType" Type="Self.DataType" Multiplicity="1" />
+          <End Role="CodeDataLog" Type="Self.CodeDataLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataType">
+              <PropertyRef Name="DataTypeID" />
+            </Principal>
+            <Dependent Role="CodeDataLog">
+              <PropertyRef Name="FieldTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConfigurationDetail_Configuration">
+          <End Role="Configuration" Type="Self.Configuration" Multiplicity="1" />
+          <End Role="ConfigurationDetail" Type="Self.ConfigurationDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Configuration">
+              <PropertyRef Name="ConfigurationID" />
+            </Principal>
+            <Dependent Role="ConfigurationDetail">
+              <PropertyRef Name="ConfigurationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConfigurationDetail_DataType">
+          <End Role="DataType" Type="Self.DataType" Multiplicity="1" />
+          <End Role="ConfigurationDetail" Type="Self.ConfigurationDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataType">
+              <PropertyRef Name="DataTypeID" />
+            </Principal>
+            <Dependent Role="ConfigurationDetail">
+              <PropertyRef Name="DataTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CypherKey_CypherKeyConfiguration">
+          <End Role="CypherKeyConfiguration" Type="Self.CypherKeyConfiguration" Multiplicity="0..1" />
+          <End Role="CypherKey" Type="Self.CypherKey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CypherKeyConfiguration">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CypherKey">
+              <PropertyRef Name="CypherConfigID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CypherKey_CypherKeyStatus">
+          <End Role="CypherKeyStatus" Type="Self.CypherKeyStatus" Multiplicity="1" />
+          <End Role="CypherKey" Type="Self.CypherKey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CypherKeyStatus">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="CypherKey">
+              <PropertyRef Name="Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CypherKeyLog_CypherKey">
+          <End Role="CypherKey" Type="Self.CypherKey" Multiplicity="1" />
+          <End Role="CypherKeyLog" Type="Self.CypherKeyLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CypherKey">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CypherKeyLog">
+              <PropertyRef Name="CypherKeyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dAssignationDevice_mAssignations">
+          <End Role="mAssignations" Type="Self.mAssignations" Multiplicity="1" />
+          <End Role="dAssignationDevice" Type="Self.dAssignationDevice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mAssignations">
+              <PropertyRef Name="AssignationID" />
+            </Principal>
+            <Dependent Role="dAssignationDevice">
+              <PropertyRef Name="AssignationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dAssignationDevice_mDevices">
+          <End Role="mDevices" Type="Self.mDevices" Multiplicity="1" />
+          <End Role="dAssignationDevice" Type="Self.dAssignationDevice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mDevices">
+              <PropertyRef Name="DeviceID" />
+            </Principal>
+            <Dependent Role="dAssignationDevice">
+              <PropertyRef Name="DeviceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dAssignationDevice_mDevices1">
+          <End Role="mDevices" Type="Self.mDevices" Multiplicity="0..1" />
+          <End Role="dAssignationDevice" Type="Self.dAssignationDevice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mDevices">
+              <PropertyRef Name="DeviceID" />
+            </Principal>
+            <Dependent Role="dAssignationDevice">
+              <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dDevolutionDevice_dAssignationDevice">
+          <End Role="dAssignationDevice" Type="Self.dAssignationDevice" Multiplicity="1" />
+          <End Role="dDevolutionDevice" Type="Self.dDevolutionDevice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dAssignationDevice">
+              <PropertyRef Name="AssignationID" />
+              <PropertyRef Name="DeviceID" />
+            </Principal>
+            <Dependent Role="dDevolutionDevice">
+              <PropertyRef Name="AssignationID" />
+              <PropertyRef Name="DeviceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dDevolutionDevice_mDevolutions">
+          <End Role="mDevolutions" Type="Self.mDevolutions" Multiplicity="1" />
+          <End Role="dDevolutionDevice" Type="Self.dDevolutionDevice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mDevolutions">
+              <PropertyRef Name="DevolutionID" />
+            </Principal>
+            <Dependent Role="dDevolutionDevice">
+              <PropertyRef Name="DevolutionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mAssignations_mStatus">
+          <End Role="mStatus" Type="Self.mStatus" Multiplicity="1" />
+          <End Role="mAssignations" Type="Self.mAssignations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mStatus">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="mAssignations">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mDevices_mDevices1">
+          <End Role="mDevices" Type="Self.mDevices" Multiplicity="0..1" />
+          <End Role="mDevices1" Type="Self.mDevices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mDevices">
+              <PropertyRef Name="DeviceID" />
+            </Principal>
+            <Dependent Role="mDevices1">
+              <PropertyRef Name="ParentDeviceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mDevices_mDeviceTypes">
+          <End Role="mDeviceTypes" Type="Self.mDeviceTypes" Multiplicity="1" />
+          <End Role="mDevices" Type="Self.mDevices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mDeviceTypes">
+              <PropertyRef Name="TypeID" />
+            </Principal>
+            <Dependent Role="mDevices">
+              <PropertyRef Name="DeviceTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mDevices_mStatus">
+          <End Role="mStatus" Type="Self.mStatus" Multiplicity="1" />
+          <End Role="mDevices" Type="Self.mDevices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mStatus">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="mDevices">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mDeviceTypes_mStatus">
+          <End Role="mStatus" Type="Self.mStatus" Multiplicity="1" />
+          <End Role="mDeviceTypes" Type="Self.mDeviceTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mStatus">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="mDeviceTypes">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mStatus_mStatusTypes">
+          <End Role="mStatusTypes" Type="Self.mStatusTypes" Multiplicity="0..1" />
+          <End Role="mStatus" Type="Self.mStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mStatusTypes">
+              <PropertyRef Name="TypeID" />
+            </Principal>
+            <Dependent Role="mStatus">
+              <PropertyRef Name="Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EntitiesDeviceDomainCore" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CodeConfiguration" EntityType="Self.CodeConfiguration" />
+          <EntitySet Name="CodeConfigurationDetail" EntityType="Self.CodeConfigurationDetail" />
+          <EntitySet Name="CodeDataLog" EntityType="Self.CodeDataLog" />
+          <EntitySet Name="CodeGen2DLog" EntityType="Self.CodeGen2DLog" />
+          <EntitySet Name="CodeImageLog" EntityType="Self.CodeImageLog" />
+          <EntitySet Name="Configuration" EntityType="Self.Configuration" />
+          <EntitySet Name="ConfigurationDetail" EntityType="Self.ConfigurationDetail" />
+          <EntitySet Name="CypherKey" EntityType="Self.CypherKey" />
+          <EntitySet Name="CypherKeyConfigLog" EntityType="Self.CypherKeyConfigLog" />
+          <EntitySet Name="CypherKeyConfiguration" EntityType="Self.CypherKeyConfiguration" />
+          <EntitySet Name="CypherKeyLog" EntityType="Self.CypherKeyLog" />
+          <EntitySet Name="CypherKeyStatus" EntityType="Self.CypherKeyStatus" />
+          <EntitySet Name="dAssignationDevice" EntityType="Self.dAssignationDevice" />
+          <EntitySet Name="DataType" EntityType="Self.DataType" />
+          <EntitySet Name="dDevolutionDevice" EntityType="Self.dDevolutionDevice" />
+          <EntitySet Name="EventLog" EntityType="Self.EventLog" />
+          <EntitySet Name="mAssignations" EntityType="Self.mAssignations" />
+          <EntitySet Name="mDevices" EntityType="Self.mDevices" />
+          <EntitySet Name="mDeviceTypes" EntityType="Self.mDeviceTypes" />
+          <EntitySet Name="mDevolutions" EntityType="Self.mDevolutions" />
+          <EntitySet Name="mProjects" EntityType="Self.mProjects" />
+          <EntitySet Name="mStatus" EntityType="Self.mStatus" />
+          <EntitySet Name="mStatusTypes" EntityType="Self.mStatusTypes" />
+          <EntitySet Name="mTerritory" EntityType="Self.mTerritory" />
+          <EntitySet Name="Operation" EntityType="Self.Operation" />
+          <EntitySet Name="Project_LastZippedRequets" EntityType="Self.Project_LastZippedRequets" />
+          <EntitySet Name="QrCodeGenLog" EntityType="Self.QrCodeGenLog" />
+          <EntitySet Name="WPSTypes" EntityType="Self.WPSTypes" />
+          <EntitySet Name="WPA" EntityType="Self.WPA" />
+          <EntitySet Name="WPS" EntityType="Self.WPS" />
+          <AssociationSet Name="FK_CodeConfigurationDetail_Configuration" Association="Self.FK_CodeConfigurationDetail_Configuration">
+            <End Role="CodeConfiguration" EntitySet="CodeConfiguration" />
+            <End Role="CodeConfigurationDetail" EntitySet="CodeConfigurationDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CypherKey_CodeConfiguration1" Association="Self.FK_CypherKey_CodeConfiguration1">
+            <End Role="CodeConfiguration" EntitySet="CodeConfiguration" />
+            <End Role="CypherKey" EntitySet="CypherKey" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CodeConfigurationDetail_DataType" Association="Self.FK_CodeConfigurationDetail_DataType">
+            <End Role="DataType" EntitySet="DataType" />
+            <End Role="CodeConfigurationDetail" EntitySet="CodeConfigurationDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CodeDataLog_DataType" Association="Self.FK_CodeDataLog_DataType">
+            <End Role="DataType" EntitySet="DataType" />
+            <End Role="CodeDataLog" EntitySet="CodeDataLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConfigurationDetail_Configuration" Association="Self.FK_ConfigurationDetail_Configuration">
+            <End Role="Configuration" EntitySet="Configuration" />
+            <End Role="ConfigurationDetail" EntitySet="ConfigurationDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConfigurationDetail_DataType" Association="Self.FK_ConfigurationDetail_DataType">
+            <End Role="DataType" EntitySet="DataType" />
+            <End Role="ConfigurationDetail" EntitySet="ConfigurationDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CypherKey_CypherKeyConfiguration" Association="Self.FK_CypherKey_CypherKeyConfiguration">
+            <End Role="CypherKeyConfiguration" EntitySet="CypherKeyConfiguration" />
+            <End Role="CypherKey" EntitySet="CypherKey" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CypherKey_CypherKeyStatus" Association="Self.FK_CypherKey_CypherKeyStatus">
+            <End Role="CypherKeyStatus" EntitySet="CypherKeyStatus" />
+            <End Role="CypherKey" EntitySet="CypherKey" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CypherKeyLog_CypherKey" Association="Self.FK_CypherKeyLog_CypherKey">
+            <End Role="CypherKey" EntitySet="CypherKey" />
+            <End Role="CypherKeyLog" EntitySet="CypherKeyLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dAssignationDevice_mAssignations" Association="Self.FK_dAssignationDevice_mAssignations">
+            <End Role="mAssignations" EntitySet="mAssignations" />
+            <End Role="dAssignationDevice" EntitySet="dAssignationDevice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dAssignationDevice_mDevices" Association="Self.FK_dAssignationDevice_mDevices">
+            <End Role="mDevices" EntitySet="mDevices" />
+            <End Role="dAssignationDevice" EntitySet="dAssignationDevice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dAssignationDevice_mDevices1" Association="Self.FK_dAssignationDevice_mDevices1">
+            <End Role="mDevices" EntitySet="mDevices" />
+            <End Role="dAssignationDevice" EntitySet="dAssignationDevice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dDevolutionDevice_dAssignationDevice" Association="Self.FK_dDevolutionDevice_dAssignationDevice">
+            <End Role="dAssignationDevice" EntitySet="dAssignationDevice" />
+            <End Role="dDevolutionDevice" EntitySet="dDevolutionDevice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dDevolutionDevice_mDevolutions" Association="Self.FK_dDevolutionDevice_mDevolutions">
+            <End Role="mDevolutions" EntitySet="mDevolutions" />
+            <End Role="dDevolutionDevice" EntitySet="dDevolutionDevice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mAssignations_mStatus" Association="Self.FK_mAssignations_mStatus">
+            <End Role="mStatus" EntitySet="mStatus" />
+            <End Role="mAssignations" EntitySet="mAssignations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mDevices_mDevices1" Association="Self.FK_mDevices_mDevices1">
+            <End Role="mDevices" EntitySet="mDevices" />
+            <End Role="mDevices1" EntitySet="mDevices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mDevices_mDeviceTypes" Association="Self.FK_mDevices_mDeviceTypes">
+            <End Role="mDeviceTypes" EntitySet="mDeviceTypes" />
+            <End Role="mDevices" EntitySet="mDevices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mDevices_mStatus" Association="Self.FK_mDevices_mStatus">
+            <End Role="mStatus" EntitySet="mStatus" />
+            <End Role="mDevices" EntitySet="mDevices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mDeviceTypes_mStatus" Association="Self.FK_mDeviceTypes_mStatus">
+            <End Role="mStatus" EntitySet="mStatus" />
+            <End Role="mDeviceTypes" EntitySet="mDeviceTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mStatus_mStatusTypes" Association="Self.FK_mStatus_mStatusTypes">
+            <End Role="mStatusTypes" EntitySet="mStatusTypes" />
+            <End Role="mStatus" EntitySet="mStatus" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DeviceDomainCoreModelStoreContainer" CdmEntityContainer="EntitiesDeviceDomainCore">
+          <EntitySetMapping Name="CodeConfiguration">
+            <EntityTypeMapping TypeName="DeviceDomainCoreModel.CodeConfiguration">
+              <MappingFragment StoreEntitySet="CodeConfiguration">
+                <ScalarProperty Name="ConfigurationID" ColumnName="ConfigurationID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="HorizontalClusters" ColumnName="HorizontalClusters" />
+                <ScalarProperty Name="VerticalClusters" ColumnName="VerticalClusters" />
+                <ScalarProperty Name="RandomBytes" ColumnName="RandomBytes" />
+                <ScalarProperty Name="CopiesNumber" ColumnName="CopiesNumber" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="PixelRatio" ColumnName="PixelRatio" />
+                <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CodeConfigurationDetail">
+            <EntityTypeMapping TypeName="DeviceDomainCoreModel.CodeConfigurationDetail">
+              <MappingFragment StoreEntitySet="CodeConfigurationDetail">
+                <ScalarProperty Name="ConfigurationID" ColumnName="ConfigurationID" />
+                <ScalarProperty Name="FieldID" ColumnName="FieldID" />
+                <ScalarProperty Name="Bytes" ColumnName="Bytes" />
+                <ScalarProperty Name="FieldTypeID" ColumnName="FieldTypeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CodeDataLog">
+            <EntityTypeMapping TypeName="DeviceDomainCoreModel.CodeDataLog">
+              <MappingFragment StoreEntitySet="CodeDataLog">
+                <ScalarProperty Name="CodeDataLogID" ColumnName="CodeDataLogID" />
+                <ScalarProperty Name="CypherKeyID" ColumnName="CypherKeyID" />
+                <ScalarProperty Name="Folio" ColumnName="Folio" />
+                <ScalarProperty Name="FieldTypeID" ColumnName="FieldTypeID" />
+                <ScalarProperty Name="Bytes" ColumnName="Bytes" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CodeGen2DLog">
+            <EntityTypeMapping TypeName="DeviceDomainCoreModel.CodeGen2DLog">
+              <MappingFragment StoreEntitySet="CodeGen2DLog">
+                <ScalarProperty Name="CodeGen2DLogID" ColumnName="CodeGen2DLogID" />
+                <ScalarProperty Name="Station" ColumnName="Station" />
+                <ScalarProperty Name="Folio" ColumnName="Folio" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="DeviceID" ColumnName="DeviceID" />
+                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+                <ScalarProperty Name="MachineName" ColumnName="MachineName" />
+                <ScalarProperty Name="ClientInfo" ColumnName="ClientInfo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CodeImageLog">
+            <EntityTypeMapping TypeName="DeviceDomainCoreModel.CodeImageLog">
+              <MappingFragment StoreEntitySet="CodeImageLog">
+                <ScalarProperty Name="CodeImageLogID" ColumnName="CodeImageLogID" />
+                <ScalarProperty Name="CypherKeyID" ColumnName="CypherKeyID" />
+                <ScalarProperty Name="Station" ColumnName="Station" />
+                <ScalarProperty Name="Folio" ColumnName="Folio" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="CopyNumber" ColumnName="CopyNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Configuration">
+            <EntityTypeMapping TypeName="DeviceDomainCoreModel.Configuration">
+              <MappingFragment StoreEntitySet="Configuration">
+                <ScalarProperty Name="ConfigurationID" ColumnName="ConfigurationID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConfigurationDetail">
+            <EntityTypeMapping TypeName="DeviceDomainCoreModel.ConfigurationDetail">
+              <MappingFragment StoreEntitySet="ConfigurationDetail">
+                <ScalarProperty Name="ConfigurationDetailID" ColumnName="ConfigurationDetailID" />
+                <ScalarProperty Name="ConfigurationID" ColumnName="ConfigurationID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="DataTypeID" ColumnName="DataTypeID" />
+                <ScalarProperty Name="Bytes" ColumnName="Bytes" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="DeviceTypeID" ColumnName="DeviceTypeID" />
+                <ScalarProperty Name="IsCodeConfig" ColumnName="IsCodeConfig" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CypherKey">
+            <EntityTypeMapping TypeName="DeviceDomainCoreModel.CypherKey">
+              <MappingFragment StoreEntitySet="CypherKey">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="Station" ColumnName="Station" />
+                <ScalarProperty Name="OperationPassword" ColumnName="OperationPassword" />
+                <ScalarProperty Name="ConfigurationPassword" ColumnName="ConfigurationPassword" />
+                <ScalarProperty Name="ConfigurationDate" ColumnName="ConfigurationDate" />
+                <ScalarProperty Name="CodeConfigID" ColumnName="CodeConfigID" />
+                <ScalarProperty Name="CypherConfigID" ColumnName="CypherConfigID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CurrentCounter" ColumnName="CurrentCounter" />
+                <ScalarProperty Name="MaximumCounter" ColumnName="MaximumCounter" />
+                <ScalarProperty Name="RemainingFolios" ColumnName="RemainingFolios" />
+                <ScalarProperty Name="DeviceID" ColumnName="DeviceID" />
+                <ScalarProperty Name="InitialCounter" ColumnName="InitialCounter" />
+                <ScalarProperty Name="Caducity" ColumnName="Caducity" />
+                <ScalarProperty Name="HW_Version" ColumnName="HW_Version" />
+                <ScalarProperty Name="FW_Version" ColumnName="FW_Version" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CypherKeyConfigLog">
+            <EntityTypeMapping TypeName="DeviceDomainCoreModel.CypherKeyConfigLog">
+              <MappingFragment StoreEntitySet="CypherKeyConfigLog">
+                <ScalarProperty Name="LogID" ColumnName="LogID" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="OperationPassword" ColumnName="OperationPassword" />
+                <ScalarProperty Name="ConfigurationPassword" ColumnName="ConfigurationPassword" />
+                <ScalarProperty Name="InitialCounter" ColumnName="InitialCounter" />
+                <ScalarProperty Name="MaximumCounter" ColumnName="MaximumCounter" />
+                <ScalarProperty Name="Caducity" ColumnName="Caducity" />
+                <ScalarProperty Name="ConfigurationDate" ColumnName="ConfigurationDate" />
+                <ScalarProperty Name="Operation" ColumnName="Operation" />
+                <ScalarProperty Name="RemainingFolios" ColumnName="RemainingFolios" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CypherKeyConfiguration">
+            <EntityTypeMapping TypeName="DeviceDomainCoreModel.CypherKeyConfiguration">
+              <MappingFragment StoreEntitySet="CypherKeyConfiguration">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="InitialCounter" ColumnName="InitialCounter" />
+                <ScalarProperty Name="MaximumCounter" ColumnName="MaximumCounter" />
+                <ScalarProperty Name="Caducity" ColumnName="Caducity" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CypherKeyLog">
+            <EntityTypeMapping TypeName="DeviceDomainCoreModel.CypherKeyLog">
+              <MappingFragment StoreEntitySet="CypherKeyLog">
+                <ScalarProperty Name="LogID" ColumnName="LogID" />
+                <ScalarProperty Name="CypherKeyID" ColumnName="CypherKeyID" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="CurrentCounter" ColumnName="CurrentCounter" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="OperationID" ColumnName="OperationID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="CodeConfigurationID" ColumnName="CodeConfigurationID" />
+                <ScalarProperty Name="LogDate" ColumnName="LogDate" />
+                <ScalarProperty Name="HW_Version" ColumnName="HW_Version" />
+                <ScalarProperty Name="FW_Version" ColumnName="FW_Version" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CypherKeyStatus">
+            <EntityTypeMapping TypeName="DeviceDomainCoreModel.CypherKeyStatus">
+              <MappingFragment StoreEntitySet="CypherKeyStatus">
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dAssignationDevice">
+            <EntityTypeMapping TypeName="DeviceDomainCoreModel.dAssignationDevice">
+              <MappingFragment StoreEntitySet="dAssignationDevice">
+                <ScalarProperty Name="AssignationID" ColumnName="AssignationID" />
+                <ScalarProperty Name="DeviceID" ColumnName="DeviceID" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DataType">
+            <EntityTypeMapping TypeName="DeviceDomainCoreModel.DataType">
+              <MappingFragment StoreEntitySet="DataType">
+                <ScalarProperty Name="DataTypeID" ColumnName="DataTypeID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dDevolutionDevice">
+            <EntityTypeMapping TypeName="DeviceDomainCoreModel.dDevolutionDevice">
+              <MappingFragment StoreEntitySet="dDevolutionDevice">
+                <ScalarProperty Name="DevolutionID" ColumnName="DevolutionID" />
+                <ScalarProperty Name="DeviceID" ColumnName="DeviceID" />
+                <ScalarProperty Name="AssignationID" ColumnName="AssignationID" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventLog">
+            <EntityTypeMapping TypeName="DeviceDomainCoreModel.EventLog">
+              <MappingFragment StoreEntitySet="EventLog">
+                <ScalarProperty Name="EventLogID" ColumnName="EventLogID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
+                <ScalarProperty Name="ProfileName" ColumnName="ProfileName" />
+                <ScalarProperty Name="OperationID" ColumnName="OperationID" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="UserLogin" ColumnName="UserLogin" />
+                <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mAssignations">
+            <EntityTypeMapping TypeName="DeviceDomainCoreModel.mAssignations">
+              <MappingFragment StoreEntitySet="mAssignations">
+                <ScalarProperty Name="AssignationID" ColumnName="AssignationID" />
+                <ScalarProperty Name="AssignationDate" ColumnName="AssignationDate" />
+                <ScalarProperty Name="MaxDeliveryDate" ColumnName="MaxDeliveryDate" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="AssignedUserID" ColumnName="AssignedUserID" />
+                <ScalarProperty Name="OwnerUserID" ColumnName="OwnerUserID" />
+                <ScalarProperty Name="AssignationTicketID" ColumnName="AssignationTicketID" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mDevices">
+            <EntityTypeMapping TypeName="DeviceDomainCoreModel.mDevices">
+              <MappingFragment StoreEntitySet="mDevices">
+                <ScalarProperty Name="DeviceID" ColumnName="DeviceID" />
+                <ScalarProperty Name="Serial" ColumnName="Serial" />
+                <ScalarProperty Name="DeviceTypeID" ColumnName="DeviceTypeID" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="ParentDeviceID" ColumnName="ParentDeviceID" />
+                <ScalarProperty Name="MaintenanceDate" ColumnName="MaintenanceDate" />
+                <ScalarProperty Name="WarrantyDate" ColumnName="WarrantyDate" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mDeviceTypes">
+            <EntityTypeMapping TypeName="DeviceDomainCoreModel.mDeviceTypes">
+              <MappingFragment StoreEntitySet="mDeviceTypes">
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mDevolutions">
+            <EntityTypeMapping TypeName="DeviceDomainCoreModel.mDevolutions">
+              <MappingFragment StoreEntitySet="mDevolutions">
+                <ScalarProperty Name="DevolutionID" ColumnName="DevolutionID" />
+                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="OwnerUserID" ColumnName="OwnerUserID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="DevolutionTicketID" ColumnName="DevolutionTicketID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mProjects">
+            <EntityTypeMapping TypeName="DeviceDomainCoreModel.mProjects">
+              <MappingFragment StoreEntitySet="mProjects">
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Territory" ColumnName="Territory" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="FoliosAlert" ColumnName="FoliosAlert" />
+                <ScalarProperty Name="ExpirationAlert" ColumnName="ExpirationAlert" />
+                <ScalarProperty Name="ProjectIDWP" ColumnName="ProjectIDWP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mStatus">
+            <EntityTypeMapping TypeName="DeviceDomainCoreModel.mStatus">
+              <MappingFragment StoreEntitySet="mStatus">
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mStatusTypes">
+            <EntityTypeMapping TypeName="DeviceDomainCoreModel.mStatusTypes">
+              <MappingFragment StoreEntitySet="mStatusTypes">
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mTerritory">
+            <EntityTypeMapping TypeName="DeviceDomainCoreModel.mTerritory">
+              <MappingFragment StoreEntitySet="mTerritory">
+                <ScalarProperty Name="IdTerritory" ColumnName="IdTerritory" />
+                <ScalarProperty Name="Territory" ColumnName="Territory" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Operation">
+            <EntityTypeMapping TypeName="DeviceDomainCoreModel.Operation">
+              <MappingFragment StoreEntitySet="Operation">
+                <ScalarProperty Name="OperationID" ColumnName="OperationID" />
+                <ScalarProperty Name="OperationName" ColumnName="OperationName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Project_LastZippedRequets">
+            <EntityTypeMapping TypeName="DeviceDomainCoreModel.Project_LastZippedRequets">
+              <MappingFragment StoreEntitySet="Project_LastZippedRequets">
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="WPSZippedFile" ColumnName="WPSZippedFile" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QrCodeGenLog">
+            <EntityTypeMapping TypeName="DeviceDomainCoreModel.QrCodeGenLog">
+              <MappingFragment StoreEntitySet="QrCodeGenLog">
+                <ScalarProperty Name="QrCodeGenLogID" ColumnName="QrCodeGenLogID" />
+                <ScalarProperty Name="QrData" ColumnName="QrData" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="GeneratedDate" ColumnName="GeneratedDate" />
+                <ScalarProperty Name="QrVersion" ColumnName="QrVersion" />
+                <ScalarProperty Name="QrCodeErrorCorrection" ColumnName="QrCodeErrorCorrection" />
+                <ScalarProperty Name="QrCodeEncoding" ColumnName="QrCodeEncoding" />
+                <ScalarProperty Name="ObjectGUID" ColumnName="ObjectGUID" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WPSTypes">
+            <EntityTypeMapping TypeName="DeviceDomainCoreModel.WPSTypes">
+              <MappingFragment StoreEntitySet="WPSTypes">
+                <ScalarProperty Name="RequestTypeID" ColumnName="RequestTypeID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WPA">
+            <EntityTypeMapping TypeName="DeviceDomainCoreModel.WPA">
+              <MappingFragment StoreEntitySet="WPA">
+                <ScalarProperty Name="WPSID" ColumnName="WPSID" />
+                <ScalarProperty Name="ExpirationFile" ColumnName="ExpirationFile" />
+                <ScalarProperty Name="AuthorizedMaxFolios" ColumnName="AuthorizedMaxFolios" />
+                <ScalarProperty Name="AuthorizedExpiration" ColumnName="AuthorizedExpiration" />
+                <ScalarProperty Name="ApplyDate" ColumnName="ApplyDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WPS">
+            <EntityTypeMapping TypeName="DeviceDomainCoreModel.WPS">
+              <MappingFragment StoreEntitySet="WPS">
+                <ScalarProperty Name="WPSID" ColumnName="WPSID" />
+                <ScalarProperty Name="WPSFilePath" ColumnName="WPSFilePath" />
+                <ScalarProperty Name="WPSFolio" ColumnName="WPSFolio" />
+                <ScalarProperty Name="WPSExpiration" ColumnName="WPSExpiration" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="IdProjectWP" ColumnName="IdProjectWP" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="KeySerialNumber" ColumnName="KeySerialNumber" />
+                <ScalarProperty Name="KeyStatus" ColumnName="KeyStatus" />
+                <ScalarProperty Name="KeyInitialCounter" ColumnName="KeyInitialCounter" />
+                <ScalarProperty Name="KeyCurrentCounter" ColumnName="KeyCurrentCounter" />
+                <ScalarProperty Name="KeyMaxFolios" ColumnName="KeyMaxFolios" />
+                <ScalarProperty Name="KeyExpirationDate" ColumnName="KeyExpirationDate" />
+                <ScalarProperty Name="RequestFolios" ColumnName="RequestFolios" />
+                <ScalarProperty Name="RequestExpiration" ColumnName="RequestExpiration" />
+                <ScalarProperty Name="RequestTypeID" ColumnName="RequestTypeID" />
+                <ScalarProperty Name="IsAuthorized" ColumnName="IsAuthorized" />
+                <ScalarProperty Name="OwnerUser" ColumnName="OwnerUser" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
